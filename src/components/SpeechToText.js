@@ -1,25 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const SpeechToText = () => {
   const [transcript, setTranscript] = useState("");
   const [listening, setListening] = useState(false);
-  const [language, setLanguage] = useState("hi-IN"); // Default to Hindi
+  const [language, setLanguage] = useState("hi-IN");
+  const recognitionRef = useRef(null);
 
-  // Function to start speech recognition
-  const startListening = () => {
-    if (!("webkitSpeechRecognition" in window)) {
+  const initRecognition = () => {
+    const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+
+    if (!SpeechRecognition) {
       alert("Speech Recognition API is not supported in your browser.");
-      return;
+      return null;
     }
 
-    const recognition = new window.webkitSpeechRecognition();
-    recognition.lang = language; // Set language (Hindi or Marathi)
-    recognition.continuous = false; // Stop when input ends
+    const recognition = new SpeechRecognition();
+    recognition.lang = language;
+    recognition.continuous = true;
     recognition.interimResults = true;
+
+    return recognition;
+  };
+
+  const startListening = () => {
+    if (listening) return;
+
+    const recognition = initRecognition();
+    if (!recognition) return;
+
+    recognitionRef.current = recognition;
 
     recognition.onstart = () => {
       setListening(true);
-      setTranscript("");
     };
 
     recognition.onresult = (event) => {
@@ -30,22 +42,33 @@ const SpeechToText = () => {
     };
 
     recognition.onerror = (event) => {
-      console.error("Error occurred in recognition: ", event.error);
+      console.error("Speech recognition error:", event.error);
       alert(`Speech recognition error: ${event.error}`);
     };
 
     recognition.onend = () => {
       setListening(false);
+      // recognition.start(); // Optional: Uncomment for auto-restart
     };
 
     recognition.start();
   };
 
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      setListening(false);
+    }
+  };
+
+  const clearText = () => {
+    setTranscript("");
+  };
+
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "500px" }}>
       <h2>Speech to Text (Hindi / Marathi)</h2>
 
-      {/* Language Selection */}
       <div style={{ marginBottom: "10px" }}>
         <label>
           Select Language:
@@ -60,36 +83,68 @@ const SpeechToText = () => {
         </label>
       </div>
 
-      {/* Start Button */}
-      <button
-        onClick={startListening}
-        disabled={listening}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: listening ? "gray" : "blue",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        {listening ? "Listening..." : "Start Listening"}
-      </button>
-
-      {/* Transcript Output */}
-      <div style={{ marginTop: "20px" }}>
-        <h4>Captured Text:</h4>
-        <div
+      <div style={{ marginBottom: "15px" }}>
+        <button
+          onClick={startListening}
+          disabled={listening}
           style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            minHeight: "50px",
+            padding: "10px 20px",
+            backgroundColor: listening ? "gray" : "green",
+            color: "white",
+            border: "none",
             borderRadius: "5px",
-            backgroundColor: "#f9f9f9",
+            cursor: "pointer",
+            marginRight: "10px",
           }}
         >
-          {transcript || "No text captured yet..."}
-        </div>
+          {listening ? "Listening..." : "Start Listening"}
+        </button>
+        <button
+          onClick={stopListening}
+          disabled={!listening}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "red",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            marginRight: "10px",
+          }}
+        >
+          Stop
+        </button>
+        <button
+          onClick={clearText}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#555",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Clear
+        </button>
+      </div>
+
+      <div>
+        <label>
+          <strong>Captured Text:</strong>
+        </label>
+        <textarea
+          value={transcript}
+          onChange={(e) => setTranscript(e.target.value)}
+          rows={5}
+          style={{
+            width: "100%",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+            resize: "vertical",
+          }}
+        />
       </div>
     </div>
   );

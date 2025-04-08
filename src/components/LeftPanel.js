@@ -19,6 +19,7 @@ const LeftPanel = () => {
         <li><Link to="/DynamicPlaceholdersTable">DynamicPlaceholdersTable</Link></li>
         <li><Link to="/MainwithSpeechtoText">MainwithSpeechtoText</Link></li>
         <li><Link to="/DynamicTable">DynamicTable</Link></li> */}
+		<li><Link to="/SpeechToText">SpeechToText</Link></li>
         <li><Link to="/StartPage">StartPage</Link></li>
         <li><Link to="/FirstInformationReport">FirstInformationReport</Link></li>
         <li><Link to="/ChargeSheet">ChargeSheet</Link></li>
