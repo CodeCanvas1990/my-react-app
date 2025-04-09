@@ -32,7 +32,8 @@ const App = () => {
         {/* Main Content Area */}
         <div style={{ marginLeft: '200px', padding: '20px', flex: 1 }}>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<SpeechToText />} />
+            <Route path="/HomePage" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/Form1" element={<Form1 />} />
