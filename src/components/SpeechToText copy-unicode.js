@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { unicodeToISM } from "../utils/unicodeToISM";
 import "../styles/fonts.css";
 

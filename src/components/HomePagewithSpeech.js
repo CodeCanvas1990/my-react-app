@@ -1,13 +1,11 @@
-import Reac, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import '../../src/App.css';
 import SpeechToText from './SpeechToText'
 
 const HomePagewithSpeech = () => {
 
-  const [language, setLanguage] = useState("mr-IN");
-  const [listening, setListening] = useState(false);
-  const [transcript, setTranscript] = useState("");
+  const [language] = useState("mr-IN");
+
 
   const [stationName, setStationName] = useState("");
   const [reportName, setReportName] = useState("");

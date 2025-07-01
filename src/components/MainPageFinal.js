@@ -1,5 +1,4 @@
-import Reac, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import '../../src/App.css';
 
 const MainPageFinal = () => {
@@ -8,21 +7,11 @@ const MainPageFinal = () => {
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
 
-  const stationNameString = "स्टेशन:";
-  const reportNameString = "अहवाल क्रमांक:";
-  const dateString = "तारीख:";
-  const timeString = "वेळ:";
-  const cNameString = "तक्रारदाराचे नाव:";
-  const ageString = "वय:";
-  const addressString = "पत्ता:";
-  const contactNumberString = "संपर्क क्रमांक:";
-  const incidentDateTimeString = "घटनेची तारीख व वेळ:";
-  const incidentLocationString = "घटनेचे ठिकाण:";
-  const complaintDetailsString = "तक्रारीचा तपशील:";
+  
   // Replace placeholder [name] with input value
  
  //const [dataName, setDataValue] = useState(data);
-  const [columns, setColumns] = useState(["stationNameString", "reportNameString", 
+  const [columns] = useState(["stationNameString", "reportNameString", 
     "dateString", "timeString", "cNameString", "ageString", "addressString", "contactNumberString",
     "incidentDateTimeString", "incidentLocationString", "complaintDetailsString"]);
 

@@ -1,4 +1,4 @@
-import Reac, { useState } from 'react';
+import { useState } from 'react';
 import '../../src/App.css';
 
 const MainwithSpeechtoText = () => {
@@ -9,37 +9,6 @@ const MainwithSpeechtoText = () => {
 
   const [selectedField, setSelectedField] = useState(""); // To track the selected field (name, age, city)
     const [inputValue, setInputValue] = useState(""); // To track the input value
-    const [selectedRowId, setSelectedRowId] = useState(null); // To track the selected row by ID
-
-  const [transcript1, setTranscript1] = useState("");
-  const [listening1, setListening1] = useState(false);
-
-  const [transcript2, setTranscript2] = useState("");
-  const [listening2, setListening2] = useState(false);
-
-  const [transcript3, setTranscript3] = useState("");
-  const [listening3, setListening3] = useState(false);
-
-  const [transcript4, setTranscript4] = useState("");
-  const [listening4, setListening4] = useState(false);
-
-  const [transcript5, setTranscript5] = useState("");
-  const [listening5, setListening5] = useState(false);
-
-  const [transcript6, setTranscript6] = useState("");
-  const [listening6, setListening6] = useState(false);
-
-  const [transcript7, setTranscript7] = useState("");
-  const [listening7, setListening7] = useState(false);
-
-  const [transcript8, setTranscript8] = useState("");
-  const [listening8, setListening8] = useState(false);
-
-  const [transcript9, setTranscript9] = useState("");
-  const [listening9, setListening9] = useState(false);
-
-  const [transcript10, setTranscript10] = useState("");
-  const [listening10, setListening10] = useState(false);
 
   const [stationName, setStationName] = useState("");
   const [reportName, setReportName] = useState("");
@@ -53,31 +22,8 @@ const MainwithSpeechtoText = () => {
   const [incidentLocation, setIncidentLocation] = useState("");
   const [complaintDetails, setComplaintDetails] = useState("");
 
-
-  const stationNameString = "स्टेशन: [stationName]";
-  const reportNameString = "अहवाल क्रमांक: [reportName]";
-  const dateString = "तारीख: [date]";
-  const timeString = "वेळ: [time]";
-  const cNameString = "तक्रारदाराचे नाव: [name]";
-  const ageString = "वय: [age]";
-  const addressString = "पत्ता: [address]";
-  const contactNumberString = "संपर्क क्रमांक: [contactNumber]";
-  const incidentDateTimeString = "घटनेची तारीख व वेळ: [incidentDateTime]";
-  const incidentLocationString = "घटनेचे ठिकाण: [incidentLocation]";
-  const complaintDetailsString = "तक्रारीचा तपशील: [complaintDetails]";
   // Replace placeholder [name] with input value
-  const updatedStationName = stationNameString.replace("[stationName]", stationName || "Guest");
-  const updatedReportName = reportNameString.replace("[reportName]", reportName || "Guest");
-  const updatedDate = dateString.replace("[date]", date || "Guest");
-  const updatedTime = timeString.replace("[time]", time || "Guest");
-  const updatedCName = cNameString.replace("[name]", name || "Guest");
-  const updatedAge = ageString.replace("[age]", age || "Guest");
-  const updatedAddress = addressString.replace("[address]", address || "Guest");
-  const updatedContactNumber = contactNumberString.replace("[contactNumber]", contactNumber || "Guest");
-  const updatedIncidentDateTime = incidentDateTimeString.replace("[incidentDateTime]", incidentDateTime || "Guest");
-  const updatedInidentLocation = incidentLocationString.replace("[incidentLocation]", incidentLocation || "Guest");
-  const updatedIncidentDetails = complaintDetailsString.replace("[complaintDetails]", complaintDetails || "Guest");
-
+ 
     const startListening = () => {
         //console.info("value is " + id);
         if (!("webkitSpeechRecognition" in window)) {
@@ -112,7 +58,7 @@ const MainwithSpeechtoText = () => {
 
     recognition.onend = () => {
         setListening(false);
-        setListening1(false);
+        setListening(false);
     };
 
     recognition.start();

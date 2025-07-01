@@ -1,4 +1,4 @@
-import Reac, { useState } from 'react';
+import { useState } from 'react';
 import '../../src/App.css';
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const StartPage = () => {
     //const [transcript, setTranscript] = useState("");
     const navigate = useNavigate();
     const [stationName, setStationName] = useState("");
-    const [stationArea, setStationArea] = useState("");
+    const [stationArea] = useState("");
     const [reportNumber, setReportNumber] = useState("");
     
     const [date, setDate] = useState("");
@@ -15,7 +15,7 @@ const StartPage = () => {
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [address, setAddress] = useState("");
-    const [reporterHusbandFatherDetails, setReporterHusbandFatherDetails] = useState("");
+    const [reporterHusbandFatherDetails] = useState("");
 
     const [contactNumber, setContactNumber] = useState("");
     const [incidentDateTime, setIncidentDateTime] = useState("");
