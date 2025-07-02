@@ -77,7 +77,7 @@ const SpeechToText = () => {
     const SpeechRecognition =
       window.webkitSpeechRecognition || window.SpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Speech Recognition API is not supported in your browser.");
+      alert("Speech Recognition API not supported.");
       return null;
     }
     const recognition = new SpeechRecognition();
@@ -96,7 +96,7 @@ const SpeechToText = () => {
 
     recognition.onresult = (event) => {
       const currentTranscript = Array.from(event.results)
-        .map((result) => result[0].transcript)
+        .map((r) => r[0].transcript)
         .join(" ");
       const updatedText = insertAtCursor(transcript, currentTranscript);
       setTranscript(updatedText);
@@ -138,22 +138,44 @@ const SpeechToText = () => {
   };
 
   const copyText = () => {
-    const textToCopy = language === "mr-IN" ? unicodeToISM(transcript) : transcript;
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      alert("Text copied to clipboard!");
-    });
+    const text = language === "mr-IN" ? unicodeToISM(transcript) : transcript;
+    navigator.clipboard.writeText(text).then(() =>
+      alert("Text copied to clipboard!")
+    );
   };
 
   const downloadWordDoc = async () => {
     const content = language === "mr-IN" ? unicodeToISM(transcript) : transcript;
     const doc = new Document({
+      styles: {
+        default: {
+          document: {
+            run: {
+              font: "DV-TTDhruv",
+            },
+          },
+        },
+        fonts: [
+          {
+            name: "DV-TTDhruv",
+            embed: true,
+            link: "/fonts/DV-TTDhruv.TTF",
+            panose: "020B0604020202020204",
+          },
+        ],
+      },
       sections: [
         {
           properties: {},
-          children: [new Paragraph({ children: [new TextRun(content)] })],
+          children: [
+            new Paragraph({
+              children: [new TextRun({ text: content, font: "DV-TTDhruv" })],
+            }),
+          ],
         },
       ],
     });
+
     const blob = await Packer.toBlob(doc);
     saveAs(blob, "speech-transcription.docx");
   };
@@ -331,7 +353,16 @@ const SpeechToText = () => {
         value={isMarathi ? unicodeToISM(transcript) : transcript}
         onChange={handleTextareaChange}
         onClick={handleTextareaClick}
-        style={{ fontFamily: textareaFont }}
+        style={{
+            fontFamily: textareaFont,
+            width: "100%",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+            resize: "vertical",
+            fontSize: "16px"
+          }}
+          rows={6}
       />
     </div>
   </div>
