@@ -13,6 +13,7 @@ const SpeechToText = () => {
 
   const unicodeToISM = (unicodeText) => {
     return unicodeText
+      //.replace(/([क-ह]़?)(ि)/g, "ि$1")
       .replace(/अ/g, "अ")
       .replace(/आ/g, "आ")
       .replace(/इ/g, "इ")
@@ -57,7 +58,7 @@ const SpeechToText = () => {
       .replace(/स/g, "स")
       .replace(/ह/g, "ह")
       .replace(/ा/g, "ा")
-      .replace(/ि/g, "")
+      //.replace(/ि/g, "")
       .replace(/ी/g, "ी")
       .replace(/ु/g, "ु")
       .replace(/ू/g, "ू")
@@ -161,7 +162,7 @@ const SpeechToText = () => {
   const textareaFont = isMarathi ? "'DV-TTDhruv', Arial, sans-serif" : "Arial, sans-serif";
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "500px" }}>
+    /* <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "500px" }}>
       <h2>Speech to Text (Marathi / Hindi / English)</h2>
       <div style={{ marginBottom: "10px" }}>
         <label>
@@ -277,7 +278,64 @@ const SpeechToText = () => {
           }}
         />
       </div>
+    </div> */
+
+  <div className="responsive-container">
+    <h2>Speech to Text (Marathi / Hindi / English)</h2>
+
+    <div style={{ marginBottom: "10px" }}>
+      <label>
+        Select Language:
+        <select
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+          style={{ marginLeft: "10px", padding: "5px" }}
+        >
+          <option value="mr-IN">Marathi</option>
+          <option value="hi-IN">Hindi</option>
+          <option value="en-IN">English</option>
+        </select>
+      </label>
     </div>
+
+    <div className="button-group">
+      <button
+        onClick={startListening}
+        disabled={listening}
+        style={{ backgroundColor: listening ? "gray" : "green" }}
+      >
+        {listening ? "Listening..." : "Start Listening"}
+      </button>
+
+      <button onClick={stopListening} disabled={!listening} style={{ backgroundColor: "red" }}>
+        Stop
+      </button>
+
+      <button onClick={clearText} style={{ backgroundColor: "#555" }}>
+        Clear
+      </button>
+
+      <button onClick={copyText} style={{ backgroundColor: "#007bff" }}>
+        Copy
+      </button>
+
+      <button onClick={downloadWordDoc} style={{ backgroundColor: "#6c63ff" }}>
+        Download Word
+      </button>
+    </div>
+
+    <div>
+      <label><strong>Captured Text:</strong></label>
+      <textarea
+        ref={textareaRef}
+        value={isMarathi ? unicodeToISM(transcript) : transcript}
+        onChange={handleTextareaChange}
+        onClick={handleTextareaClick}
+        style={{ fontFamily: textareaFont }}
+      />
+    </div>
+  </div>
+
   );
 };
 
