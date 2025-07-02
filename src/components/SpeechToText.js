@@ -159,7 +159,7 @@ const SpeechToText = () => {
   };
 
   const isMarathi = language === "mr-IN";
-  const textareaFont = isMarathi ? "'DV-TTDhruv', Arial, sans-serif" : "Arial, sans-serif";
+  const textareaFont = isMarathi ? "'DV-TTDhruv', sans-serif" : "Arial, sans-serif";
 
   return (
     /* <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "500px" }}>
